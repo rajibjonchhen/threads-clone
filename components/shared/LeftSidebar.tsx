@@ -16,7 +16,7 @@ function LeftSidebar() {
           <Link 
           key = {link.label} 
           href= {link.route}
-          className = "leftsidebar_link"
+          className = { `leftsidebar_link ${isActive? "bg-primary-500":""}`}
           >
             <Image src={link.imgURL} alt ={link.label} width = {24} height ={24}/>
             <p className ="text-light-1 max-lg:hidden">{link.label}</p>
@@ -24,6 +24,7 @@ function LeftSidebar() {
         )}
         )}
       </div>
+        
     </section>
   )
 }
