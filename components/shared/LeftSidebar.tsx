@@ -1,8 +1,10 @@
 "use client"
 import { sidebarLinks } from "@/contants"
+import { SignOutButton, SignedIn } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
+import SignOutBtn from "./SignOutBtn"
 
 function LeftSidebar() {
   const router = useRouter()
@@ -24,6 +26,9 @@ function LeftSidebar() {
         )}
         )}
       </div>
+      <div className="mt-10 px-6"> 
+          <SignOutBtn label = {true}/>
+        </div>
         
     </section>
   )
