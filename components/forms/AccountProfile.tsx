@@ -22,6 +22,7 @@ interface Props {
     btnTitle : string
 }
 function AccountProfile({user, btnTitle} : Props) {
+  console.log("user", user)
     const form  = useForm({
         resolver : zodResolver(UserValidation),
         defaultValues : {

@@ -1,15 +1,16 @@
 import AccountProfile from "@/components/forms/AccountProfile"
 import {currentUser} from "@clerk/nextjs"
-import { userInfo } from "os"
 
 async function Page (){
     const user = await currentUser()
+
+    const userInfo = {}
     const userData = {
         id : user?.id,
         objectId : userInfo?.id,
-        username : userInfo?.username || user?.username,
-        username : userInfo?.name || user?.firstname || "",
-        bio : userInfo?.bio || "",
+        username : userInfo?.username || user?.username || "empty string",
+        name : userInfo?.name || user?.firstname || "empty string",
+        bio : userInfo?.bio || "empty string",
         image : userInfo?.image || user?.imageUrl,
         
     }
