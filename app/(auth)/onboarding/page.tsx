@@ -3,13 +3,12 @@ import {currentUser} from "@clerk/nextjs"
 
 async function Page (){
     const user = await currentUser()
-
     const userInfo = {}
     const userData = {
         id : user?.id,
         objectId : userInfo?.id,
         username : userInfo?.username || user?.username || "empty string",
-        name : userInfo?.name || user?.firstname || "empty string",
+        name : userInfo?.name || `${user?.firstName}  ${user?.lastName?.toLowerCase()}` || "empty string",
         bio : userInfo?.bio || "empty string",
         image : userInfo?.image || user?.imageUrl,
         
