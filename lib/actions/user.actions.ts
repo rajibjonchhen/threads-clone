@@ -20,8 +20,8 @@ export async function updateUser({userId,
     path}:Params) : Promise<void> {
     connectToDB()
         try {
-            
-            await User.findOneAndUpdate({id : userId}, 
+            await User.findOneAndUpdate(
+                {id : userId}, 
                 {
                     username : username.toLowerCase(),
                     name,
