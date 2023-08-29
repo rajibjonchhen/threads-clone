@@ -122,7 +122,7 @@ function AccountProfile({user, btnTitle} : Props) {
                 className="account-form_image-input"
                 onChange = {(e) => handleChange(e, field.onChange)}/>
               </FormControl>
-          
+                  <FormMessage/>
             </FormItem>
           )}
         />
@@ -140,7 +140,8 @@ function AccountProfile({user, btnTitle} : Props) {
                 type = "text" 
                 className="account-form_input no-focus"
                 {...field}/>
-              </FormControl>         
+              </FormControl>
+                  <FormMessage/>         
             </FormItem>
           )}
         />
@@ -158,7 +159,8 @@ function AccountProfile({user, btnTitle} : Props) {
                 type = "text" 
                 className="account-form_input no-focus"
                 {...field}/>
-              </FormControl>         
+              </FormControl>
+                  <FormMessage/>         
             </FormItem>
           )}
         />
@@ -175,7 +177,8 @@ function AccountProfile({user, btnTitle} : Props) {
                 <Textarea 
                 className="account-form_input no-focus"
                 {...field}></Textarea>
-              </FormControl>         
+              </FormControl>
+                  <FormMessage/>         
             </FormItem>
           )}
         />
