@@ -12,7 +12,8 @@ interface Params {
     path : string
 }
 
-export async function updateUser({userId,
+export async function updateUser({
+    userId,
     username,
     name,
     bio,
