@@ -36,7 +36,14 @@ function PostThread ({userId}:{userId:string}){
     })
 
     async function onSubmit(values :z.infer<typeof ThreadValidation>){
-        await createThread({})
+        await createThread({
+           text : values.thread,
+           author : userId,
+           communityId : null,
+           path : pathname
+        })
+
+        router.push("/")
     }
     return (
         <Form {...form}>
