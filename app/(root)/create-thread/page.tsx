@@ -6,13 +6,14 @@ async function Page() {
     const user = await currentUser()
     if(!user) return null
     const userInfo = await fetchUser(user.id)
-    if(userInfo?.onboarded) redirect('/onboarding');
+    // if(userInfo?.onboarded) redirect('/onboarding');
     
-   return
-   <>
-   <h1>helllo </h1>
-   <PostThread userId = {userInfo._id}/>
-   </>
+   return(
+    <>
+        <p className = "text-light-1 text-heading2-bold">Create Thread </p>
+        <PostThread userId = {userInfo._id}/>
+    </>
+    )
 }
 
 export default Page
