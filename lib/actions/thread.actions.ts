@@ -1,7 +1,6 @@
 "use server"
 
 import { connectToDB } from "../mongoose"
-import { ThreadValidation } from "../validation/thread"
 import Thread from "../models/thread.model"
 import User from "../models/user.model"
 import { revalidatePath } from "next/cache"
@@ -30,4 +29,30 @@ export async function createThread({text, author,  communityId, path}:Params){
     } catch (error) {
         throw new Error(`Error in creating thread ${error}`)
     }
+}
+
+export async function fetchPosts(pageNumber = 1, pageSize = 20){
+    connectToDB()
+
+    const skipAmount = (pageNumber - 1) * pageSize
+    const postsQuery = Thread.find({parentId : {$in : [null, undefined]}})
+    .sort({createdAt : 'desc'})
+    .skip(skipAmount)
+    .limit(pageSize)
+    .populate({path : 'author', model : User})
+    .populate({
+        path : 'children',
+        populate : {
+            path : 'author',
+            model : User,
+            select : '_id name parentId image'
+        }
+    })
+    const totalPostsCount = await Thread.countDocuments({parentId : { $in : [null, undefined]}})
+
+    const posts = await postsQuery.exec()
+
+    const isNext = totalPostsCount > skipAmount + posts.length
+
+    return {posts, isNext}
 }
