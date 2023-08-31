@@ -21,9 +21,9 @@ interface Props {
     comments : {
         author : {
         image : String
-    }[],
-    isComment : Boolean
-    }
+    },
+}[]
+isComment : Boolean
 }
 function ThreadCard({
     id,
@@ -33,7 +33,8 @@ function ThreadCard({
     author,
     community,
     createdAt,
-    comments 
+    comments,
+    isComment 
 }:Props) {
   return (
     <article className = "flex w-full flex-col rounded-x1 bg-dark-2 p-7">
@@ -58,14 +59,31 @@ function ThreadCard({
                         <h4 className = "cursor-pointer text-base-semibold text-light-1">{author.name}</h4>
                     </Link>
                     <p className="mt-2 text-small-regular text-light-2">
-
+                    {content}
                     </p>
+                    <div className = "mt-5 flex flex-col gap-3 ">
+                        <div className = "flex gap-3.5">
+                            <Image className="cursor-pointer object-contain" src ="/assets/heart-gray.svg" width = {24} height = {24} alt = ""/>
+                            <Link href = {`/thread/${id}`}>
+                                <Image className="cursor-pointer object-contain" src ="/assets/reply.svg" width = {24} height = {24} alt = ""/>
+                            </Link>
+                            <Image className="cursor-pointer object-contain" src ="/assets/repost.svg" width = {24} height = {24} alt = ""/>
+                            <Image className="cursor-pointer object-contain" src ="/assets/share.svg" width = {24} height = {24} alt = ""/>
+                        </div>
+                        {isComment && comments.length > 0  && (
+                            <Link href = {`/thread/${id}`}>
+                                <p className = "mt-1 text-subtle-medium text-gray-1">
+                                    {comments.length} replies
+                                </p>
+                            </Link>
+                        )
+
+                        }
+                    </div>
                     </div>
             </div>
         </div>
-        <h2 className = "text-small-regular text-light-2">
-        {content}
-        </h2>
+       
     </article>
   )
 }
