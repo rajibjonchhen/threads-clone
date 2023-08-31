@@ -1,13 +1,14 @@
 "use server"
 
 import ThreadCard from "@/components/cards/ThreadCard";
+import { Button } from "@/components/ui/button";
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
  
 export default async function Home() {
   const  user = await currentUser()
-  const {posts}  = await fetchPosts(1, 30)
+  const {posts, isNext}  = await fetchPosts(1, 30)
   console.log("🚀 ~ file: page.tsx:6 ~ Home ~ posts:", posts)
   return (
     <>
@@ -35,6 +36,7 @@ export default async function Home() {
         )
       }
       </section>
+      <Button disabled = {!isNext}>Next</Button>
 
     </>
   )
