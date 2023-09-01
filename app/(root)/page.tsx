@@ -2,13 +2,13 @@
 
 import ThreadCard from "@/components/cards/ThreadCard";
 import { Button } from "@/components/ui/button";
-import { fetchPosts } from "@/lib/actions/thread.actions";
+import { fetchThreads } from "@/lib/actions/thread.actions";
 import { UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
  
 export default async function Home() {
   const  user = await currentUser()
-  const {posts, isNext}  = await fetchPosts(1, 30)
+  const {posts, isNext}  = await fetchThreads(1, 30)
   console.log("🚀 ~ file: page.tsx:6 ~ Home ~ posts:", posts)
   return (
     <>
@@ -29,7 +29,7 @@ export default async function Home() {
                 community = {post.community}
                 createdAt = {post.createdAt}
                 comments = {post.children}
-                
+                isComment={post.isComment}
                 />
             ))}
           </>

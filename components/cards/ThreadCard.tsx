@@ -2,25 +2,25 @@ import Image from "next/image"
 import Link from "next/link"
 
 interface Props {
-    id : String,
-    currentUserId : String,
-    parentId: String | null,
-    content: String,
+    id : string,
+    currentUserId : string,
+    parentId: string | null,
+    content: string,
     author: {
-            name : String,
-            image : String,
-            id : String
+            name : string,
+            image : string,
+            id : string
         },
     community: {
-            id : String,
-            name : String,
-            image : String
+            id : string,
+            name : string,
+            image : string
 
     } | null,
-    createdAt : String,
+    createdAt : string,
     comments : {
         author : {
-        image : String
+        image : string
     },
 }[]
 isComment : Boolean
@@ -42,7 +42,7 @@ function ThreadCard({
             <div className="flex w-full flex-1 flex-row gap-4">
                 <div className="flex flex-col item-center">
                     <Link className = "relative h-11 w-11"
-                    href = {`/profile/${author.id}`}>
+                        href = {`/profile/${author.id}`}>
                         <Image 
                             className = "cursor-pointer rounded"
                             src = {author.image} 
