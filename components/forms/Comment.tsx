@@ -9,6 +9,7 @@ import { z } from 'zod';
 import { Button } from '../ui/button';
 import { CommentValidation } from '@/lib/validation/thread';
 import { Input } from '../ui/input';
+import Image from 'next/image';
 
 interface Props {
     threadId : string,
@@ -51,13 +52,19 @@ function Comment({
           control={form.control}
           name="thread"
           render={({ field }) => (
-            <FormItem className="flex flex-col gap-3 w-full">
-              <FormLabel className="text-base-semibold text-light-2">
-                Content
+            <FormItem className="flex  gap-3 w-full item-center">
+              <FormLabel>
+                <Image
+                    src = {currentUserImage}
+                    width = {48}
+                    height = {48}
+                    alt = "profile image"
+                    className = "rounded-full object-cover"
+                />
               </FormLabel>
-              <FormControl  className="no-focus border border-dark-4 bg-dark-3 text-light-1 ">
+              <FormControl  className="border-none bg-transparent">
                 <Input 
-                className = "no-focus text-light-1 outline-none " 
+                className = "no-focus text-light-1 outline-none" 
                 type = "text"
                 placeholder = "Comment..."
                 {...field}/>
@@ -66,8 +73,8 @@ function Comment({
             </FormItem>
           )}
         />
-        <Button type = "submit" className = "bg-primary-500">
-            Post Thread
+        <Button type = "submit" className = "comment-form_btn">
+            Reply
         </Button>
          </form>
          </Form>

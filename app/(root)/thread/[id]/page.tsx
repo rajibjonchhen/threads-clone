@@ -38,6 +38,9 @@ async function Page({params}:{params : {id : string }}) {
                 currentUserId = {userInfo._id.toString()}
                 />
             </div>
+            <div>
+               
+            </div>
         </section>
      );
 }
