@@ -5,13 +5,20 @@ import Thread from "../models/thread.model"
 import User from "../models/user.model"
 import { revalidatePath } from "next/cache"
 
-interface Params {
-    text : string,
-    author : string,
-    communityId : string | null,
-    path : string
+interface ThreadParams {
+    text : string;
+    author : string;
+    communityId : string | null;
+    path : string;
 }
-export async function createThread({text, author,  communityId, path}:Params){
+
+interface CommentParams {
+    threadId : string; 
+    commentText : string; 
+    userId : string;
+    path : string;
+}
+export async function createThread({text, author,  communityId, path}:ThreadParams){
     try {
         
         connectToDB()
@@ -84,4 +91,27 @@ export async function fetchThreadById(id : string){
     }).exec()
     console.log("thread", thread)
     return {thread}
+}
+
+export async function addCommentToThread({threadId, commentText, userId, path}: CommentParams){
+    connectToDB()
+    try {
+        const originalThread = await Thread.findById(threadId)
+
+        if(!originalThread) throw new Error("Thread not found")
+
+        const commentThread = new Thread({
+            text : commentText,
+            author : userId,
+            parentId : threadId
+        })
+        const savedCommentThread = await commentThread.save()
+            originalThread.children.push(savedCommentThread._id)
+            
+         await originalThread.save()
+         revalidatePath(path)
+    } catch (error:any) {
+        throw new Error("error adding comment", error);
+        
+    }
 }

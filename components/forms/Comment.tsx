@@ -10,6 +10,7 @@ import { Button } from '../ui/button';
 import { CommentValidation } from '@/lib/validation/thread';
 import { Input } from '../ui/input';
 import Image from 'next/image';
+import { addCommentToThread } from '@/lib/actions/thread.actions';
 
 interface Props {
     threadId : string,
@@ -33,14 +34,14 @@ function Comment({
           })
       
           async function onSubmit(values :z.infer<typeof CommentValidation>){
-            //   await createThread({
-            //      text : values.thread,
-            //      author : userId,
-            //      communityId : null,
-            //      path : pathname
-            //   })
+              await addCommentToThread({
+                 commentText : values.thread,
+                userId : currentUserId,
+                 threadId,
+                 path : pathname
+              })
       
-              router.push("/")
+              form.reset()
           }
     return ( 
         <Form {...form}>
@@ -52,7 +53,7 @@ function Comment({
           control={form.control}
           name="thread"
           render={({ field }) => (
-            <FormItem className="flex  gap-3 w-full item-center">
+            <FormItem className="flex  gap-3 w-full items-center">
               <FormLabel>
                 <Image
                     src = {currentUserImage}
