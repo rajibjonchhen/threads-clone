@@ -9,7 +9,6 @@ import { currentUser } from "@clerk/nextjs/server";
 export default async function Home() {
   const  user = await currentUser()
   const {posts, isNext}  = await fetchThreads(1, 30)
-  console.log("🚀 ~ file: page.tsx:6 ~ Home ~ posts:", posts)
   return (
     <>
       <h1 className="text-white">Home</h1>

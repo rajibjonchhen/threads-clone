@@ -44,7 +44,6 @@ function AccountProfile({user, btnTitle} : Props) {
     
         function handleChange(e: ChangeEvent<HTMLInputElement>, fieldChange : (value : string) => void){
           e.preventDefault()
-          console.log(e)
           const fileReader = new FileReader()
           if(e.target.files && e.target.files?.length > 0){
             const file = e.target.files[0]
@@ -68,7 +67,6 @@ function AccountProfile({user, btnTitle} : Props) {
         const imgRes = await startUpload(files)
 
         if(imgRes && imgRes[0].url){
-          console.log("imgRes[0].url", imgRes[0].url)
           values.profile_photo = imgRes[0].url
         }
       }
