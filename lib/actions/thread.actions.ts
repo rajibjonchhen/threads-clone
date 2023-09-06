@@ -33,12 +33,13 @@ export async function createThread({text, author,  communityId, path}:ThreadPara
         })
         
         revalidatePath(path)
-    } catch (error) {
-        throw new Error(`Error in creating thread ${error}`)
+    } catch (error:any) {
+        throw new Error(`Error in creating thread ${ error.message}`)
     }
 }
 
 export async function fetchThreads(pageNumber = 1, pageSize = 20){
+    try{
     connectToDB()
 
     const skipAmount = (pageNumber - 1) * pageSize
@@ -62,9 +63,16 @@ export async function fetchThreads(pageNumber = 1, pageSize = 20){
     const isNext = totalPostsCount > skipAmount + posts.length
 
     return {posts, isNext}
+} catch (error : any) {
+    throw new Error("error adding comment",  error.message);
+        
+}
 }
 
 export async function fetchThreadById(id : string){
+    try {
+        
+   
     const thread = await Thread.findById(id)
     .populate({
         path : "author",
@@ -90,11 +98,15 @@ export async function fetchThreadById(id : string){
     ]
     }).exec()
     return {thread}
+} catch (error : any) {
+    throw new Error("error adding comment",  error.message);
+        
+}
 }
 
 export async function addCommentToThread({threadId, commentText, userId, path}: CommentParams){
-    connectToDB()
     try {
+        connectToDB()
         const originalThread = await Thread.findById(threadId)
 
         if(!originalThread) throw new Error("Thread not found")
@@ -110,7 +122,7 @@ export async function addCommentToThread({threadId, commentText, userId, path}: 
          await originalThread.save()
          revalidatePath(path)
     } catch (error:any) {
-        throw new Error("error adding comment", error);
+        throw new Error("error adding comment",  error.message);
         
     }
 }
