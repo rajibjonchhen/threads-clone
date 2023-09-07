@@ -19,9 +19,9 @@ interface CommentParams {
     path : string;
 }
 export async function createThread({text, author,  communityId, path}:ThreadParams){
+    connectToDB()
     try {
         
-        connectToDB()
         
         const createdThread = await Thread.create({
             text,
@@ -39,8 +39,8 @@ export async function createThread({text, author,  communityId, path}:ThreadPara
 }
 
 export async function fetchThreads(pageNumber = 1, pageSize = 20){
-    try{
     connectToDB()
+    try{
 
     const skipAmount = (pageNumber - 1) * pageSize
     const postsQuery = Thread.find({parentId : {$in : [null, undefined]}})
@@ -70,9 +70,9 @@ export async function fetchThreads(pageNumber = 1, pageSize = 20){
 }
 
 export async function fetchThreadById(id : string){
+    connectToDB()
     try {
         
-   
     const thread = await Thread.findById(id)
     .populate({
         path : "author",
@@ -105,8 +105,8 @@ export async function fetchThreadById(id : string){
 }
 
 export async function addCommentToThread({threadId, commentText, userId, path}: CommentParams){
+    connectToDB()
     try {
-        connectToDB()
         const originalThread = await Thread.findById(threadId)
 
         if(!originalThread) throw new Error("Thread not found")
