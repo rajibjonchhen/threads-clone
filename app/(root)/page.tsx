@@ -35,7 +35,7 @@ export default async function Home() {
         )
       }
       </section>
-      <Button disabled = {!isNext}>Next</Button>
+      {/* <Button disabled = {!isNext}>Next</Button> */}
 
     </>
   )
