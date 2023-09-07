@@ -38,7 +38,7 @@ export async function updateUser({
                     revalidatePath(path)
                 }
             } catch (error:any) {
-                throw new Error(`Failed to create/update user : ${error.message}`)
+                throw new Error(`Failed to create/update user (updateUser) : ${error.message}`)
             }
 
 
@@ -46,14 +46,14 @@ export async function updateUser({
 
 export async function fetchUser (userId:string){
     connectToDB()
-try {
-    return await User
-    .findOne({id:userId})
-    // .populate({path :"communities"})
-    // .model: Community
-} catch (error:any) {
-    throw new Error(`failed to fetch user from DB : ${error.message}`)
-}
+    try {
+        return await User
+        .findOne({id:userId})
+        // .populate({path :"communities"})
+        // .model: Community
+    } catch (error:any) {
+        throw new Error(`failed to fetch user from DB (fetchUser) : ${error.message}`)
+    }
 }
 
 export async function fetchUserPosts(userId : string){
@@ -75,7 +75,7 @@ export async function fetchUserPosts(userId : string){
             })
             return threads
     } catch (error:any) {
-        throw new Error("failed to fetch posts", error.message);
+        throw new Error("failed to fetch posts (fetchUserPosts)", error.message);
         
     }
 }

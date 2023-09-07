@@ -64,7 +64,7 @@ export async function fetchThreads(pageNumber = 1, pageSize = 20){
 
     return {posts, isNext}
 } catch (error : any) {
-    throw new Error("error adding comment",  error.message);
+    throw new Error("error on fetchThreads",  error.message);
         
 }
 }
@@ -99,7 +99,7 @@ export async function fetchThreadById(id : string){
     }).exec()
     return {thread}
 } catch (error : any) {
-    throw new Error("error adding comment",  error.message);
+    throw new Error("failed to fetchThreadById",  error.message);
         
 }
 }
@@ -122,7 +122,7 @@ export async function addCommentToThread({threadId, commentText, userId, path}: 
          await originalThread.save()
          revalidatePath(path)
     } catch (error:any) {
-        throw new Error("error adding comment",  error.message);
+        throw new Error("error on addCommentToThread",  error.message);
         
     }
 }
