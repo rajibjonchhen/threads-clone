@@ -45,8 +45,8 @@ export async function updateUser({
 }
 
 export async function fetchUser (userId:string){
-try {
     connectToDB()
+try {
     return await User
     .findOne({id:userId})
     // .populate({path :"communities"})
@@ -57,8 +57,8 @@ try {
 }
 
 export async function fetchUserPosts(userId : string){
+    connectToDB()
     try {
-        connectToDB()
         const threads  = await User.findOne({id : userId})
             .populate({
                 path : 'threads',
